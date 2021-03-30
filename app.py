@@ -1,6 +1,6 @@
 #imports
 from flask import Flask
-from flask import render_template
+from flask import render_template, request
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import select
 
@@ -90,3 +90,22 @@ def createdata():
     post4.save()
     post5.save()
     return 'Datos insertados en BBDD'
+
+@app.route('/admin')
+def admin():
+  posts = Post.get_all()
+  return render_template('admin.html', posts = posts)
+
+@app.route('/create-post-form')
+def createPostForm():
+  return render_template('create-post.html')
+
+@app.route('/create-post', methods=['POST','GET'])
+def createPost():
+  if request.method == 'POST':
+    post = Post(request.form['titulo'], request.form['resumen'], request.form['texto'])
+    #set author from current 
+    users = User.query.all()
+    post.user_id = users[0].id
+    post.save()
+  return 'Post saved'

@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block headerjavascript %}
+<script src="https://cdn.ckeditor.com/ckeditor5/27.0.0/classic/ckeditor.js"></script>
+{% endblock %}
+{% block content %} 
+  <div class="row">
+    <div class="col-md-12">
+      <h3 class="pb-4 mb-4 fst-italic border-bottom">
+        Crear nuevo post
+      </h3>
+      <form method="POST" action="/create-post">
+        <div class="mb-3">
+          <label for="titulo" class="form-label">Titulo</label>
+          <input type="text" class="form-control" id="titulo" name="titulo" aria-describedby="tituloHelp">
+          <div id="tituloHelp" class="form-text">Incluir aqui el titulo</div>
+        </div>
+        <div class="mb-3">
+          <label for="resumen" class="form-label">Resumen</label>
+          <input type="text" class="form-control" id="resumen" name="resumen" aria-describedby="resumenHelp">
+          <div id="resumenHelp" class="form-text">Resumen</div>
+        </div>
+        <div class="mb-3">
+          <label for="texto" class="form-label">Texto</label>
+          <textarea class="form-control" id="texto" name="texto" aria-describedby="textoHelp" rows="20"></textarea>
+          <div id="textoHelp" class="form-text">Texto de nuestro post</div>
+        </div>
+        <div class="mb-3 form-check">
+          <input type="checkbox" class="form-check-input" id="destacados" name="destacados">
+          <label class="form-check-label" for="destacados">Destacados</label>
+        </div>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+      </form>
+    </div>
+  </div><!-- /.row -->
+{% endblock %}
+{% block footerjavascript %}
+<script>
+  ClassicEditor.create(document.querySelector('#texto'))
+  .catch(error => {
+    console.error(error);
+  });
+</script>
+{% endblock %}
