@@ -7,7 +7,7 @@
       </h3>
     </div>
     <div class="clearfix">
-      <button type="button" class="btn btn-secondary float-end" onclick="window.location='/create-post-form';">Crear post</button>
+      <button type="button" class="btn btn-secondary float-end" onclick="window.location='/create-post';">Crear post</button>
     </div>
     <table class="table col-md-12">
       <thead>
@@ -24,7 +24,7 @@
           <td>{{ post.title }}</td>
           <td>{{ post.slug }}</td>
           <td>{{ post.summary }}</td>
-          <td><a href="#">Borrar</a> <a href="#">Editar</a></td>
+          <td><a href="/delete-post/{{ post.id }}">Borrar</a> <a href="/edit-post/{{ post.id }}">Editar</a></td>
         </tr>
         {% endfor %}
       </tbody>

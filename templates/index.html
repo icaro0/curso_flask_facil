@@ -48,7 +48,7 @@
       </h3>
       {% for post in posts %}
       <article class="blog-post">
-        <h2 class="blog-post-title">{{ post.title }}</h2>
+        <h2 class="blog-post-title"><a href="{{ post.public_url() }}">{{ post.title }}</a></h2>
         <p class="blog-post-meta">{{ post.publish_date.strftime('%B %-d, %Y') }} by <a href="#">{{ post.user.name }}</a></p>
 
         <p>{{ post.summary }}</p>
