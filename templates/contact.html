@@ -1,0 +1,27 @@
+{% extends 'base.html' %} 
+{% block content %} 
+  <div class="row">
+    <div class="col-md-8">
+      <h3 class="pb-4 mb-4 fst-italic border-bottom">
+       Contacto
+      </h3>
+      <form action="/contact" method="POST">
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp">
+          <div id="emailHelp" class="form-text">Pon aqui tu mail</div>
+        </div>
+        <div class="mb-3">
+          <label for="asunto" class="form-label">Asunto</label>
+          <input type="text" class="form-control" id="asunto" name="asunto" aria-describedby="asuntoHelp">
+          <div id="asuntoHelp" class="form-text">Pon aqui tu asunto</div>
+        </div>
+        <div class="form-floating mb-3">
+          <textarea class="form-control" placeholder="Leave a comment here" id="texto" name="texto" style="height: 100px"></textarea>
+          <label for="floatingTextarea2">Comentario</label>
+        </div>
+        <button type="submit" class="btn btn-primary">Subir tu comentario</button>
+      </form>
+    </div>
+  </div>
+{% endblock %}

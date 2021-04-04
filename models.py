@@ -86,4 +86,19 @@ class Post(db.Model):
     @staticmethod
     def get_all():
         return Post.query.all()
+
+class ContactMessage(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    create_date = db.Column(db.DateTime())
+    summary = db.Column(db.Text)
+    content = db.Column(db.Text)
+    email = db.Column(db.String(256), nullable=False)
+    def __init__(self, email, summary, content):
+        self.email = email
+        self.summary = summary
+        self.content = content
+        self.create_date = datetime.datetime.now()
     
+    def save(self):
+        db.session.add(self)
+        db.session.commit()

@@ -18,7 +18,7 @@ login_manager.login_view = "login"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] ='mysql+mysqlconnector://argonautadigital:argonautadigital@localhost/argodigital'
 db = SQLAlchemy(app)
-from models import Post, User
+from models import Post, User, ContactMessage
 
 db.create_all()
 db.session.commit()
@@ -35,6 +35,14 @@ def post(slug):
   post = Post.get_by_slug(slug)
   return render_template('post.html', post = post)
 
+@app.route('/contact', methods=['GET', 'POST'])
+def contact():
+    if request.method == 'POST':
+        ##salvaremos los datos de contacto
+        contact_msg = ContactMessage(request.form['email'],request.form['asunto'], request.form['texto'])
+        contact_msg.save()
+        flash('Mensaje enviado correctamente.')
+    return render_template('contact.html')
 
 @app.route('/admin')
 @login_required
