@@ -33,10 +33,12 @@ class User(db.Model, UserMixin):
     @staticmethod
     def get_by_mail(email):
         return User.query.filter_by(email=email).first()
+
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete='CASCADE'), nullable=False)
     user = db.relationship('User')
+    comments = db.relationship('Comment')
     title = db.Column(db.String(256), nullable=False)
     title_slug = db.Column(db.String(256), nullable=False)
     publish_date = db.Column(db.DateTime())
@@ -94,6 +96,25 @@ class ContactMessage(db.Model):
     content = db.Column(db.Text)
     email = db.Column(db.String(256), nullable=False)
     def __init__(self, email, summary, content):
+        self.email = email
+        self.summary = summary
+        self.content = content
+        self.create_date = datetime.datetime.now()
+    
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+class Comment(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    post_id = db.Column(db.Integer, db.ForeignKey('post.id', ondelete='CASCADE'), nullable=False)
+    post = db.relationship('Post')
+    create_date = db.Column(db.DateTime())
+    summary = db.Column(db.Text)
+    content = db.Column(db.Text)
+    email = db.Column(db.String(256), nullable=False)
+    def __init__(self, email, summary, content, post_id):
+        self.post_id = post_id
         self.email = email
         self.summary = summary
         self.content = content
